@@ -16,8 +16,41 @@ config :retrochat, RetrochatWeb.Endpoint,
   secret_key_base: "Oo/4Ja/Mgn7HCstxAk5ct4FguapAHX7RGy4/Fi1lRuCGnojm2lVytoBL4Ya1kZix",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --bundle --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--postcss --watch)]}
   ]
+
+
+# This is probably not needed since we use hte phoenix tailwindcss plugin.
+# config :membrane_videoroom_demo, VideoRoomWeb.Endpoint,
+#   code_reloader: true,
+#   watchers: [
+#     esbuild:
+#       {Esbuild, :install_and_run,
+#        [
+#          :default,
+#          ~w(--sourcemap=inline --bundle --watch)
+#        ]},
+#     npx: [
+#       "tailwindcss",
+#       "--input=css/app.css",
+#       "--output=../priv/static/assets/css/app.css",
+#       "--postcss",
+#       "--watch",
+#       cd: Path.expand("../assets", __DIR__)
+#     ]
+#   ]
+
+# config :membrane_videoroom_demo, VideoRoomWeb.Endpoint,
+#   live_reload: [
+#     patterns: [
+#       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+#       ~r"priv/gettext/.*(po)$",
+#       ~r"lib/videoroom_web/(live|views)/.*(ex)$",
+#       ~r"lib/videoroom_web/templates/.*(eex)$"
+#     ]
+#   ]
+
 
 # ## SSL Support
 #

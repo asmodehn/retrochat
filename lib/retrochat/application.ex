@@ -7,15 +7,23 @@ defmodule Retrochat.Application do
 
   @impl true
   def start(_type, _args) do
+    config_common_dtls_key_cert()
+
     children = [
       # Start the Telemetry supervisor
       RetrochatWeb.Telemetry,
+
       # Start the PubSub system
       {Phoenix.PubSub, name: Retrochat.PubSub},
+
       # Start the Endpoint (http/https)
-      RetrochatWeb.Endpoint
+      RetrochatWeb.Endpoint,
+
       # Start a worker by calling: Retrochat.Worker.start_link(arg)
-      # {Retrochat.Worker, arg}
+      # {Retrochat.Worker, arg},
+
+      # Process Registry
+      {Registry, keys: :unique, name: Videoroom.Room.Registry}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -31,4 +39,14 @@ defmodule Retrochat.Application do
     RetrochatWeb.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  defp config_common_dtls_key_cert() do
+    {:ok, pid} = ExDTLS.start_link(client_mode: false, dtls_srtp: true)
+    {:ok, pkey} = ExDTLS.get_pkey(pid)
+    {:ok, cert} = ExDTLS.get_cert(pid)
+    :ok = ExDTLS.stop(pid)
+    Application.put_env(:retrochat, :dtls_pkey, pkey)
+    Application.put_env(:retrochat, :dtls_cert, cert)
+  end
+
 end

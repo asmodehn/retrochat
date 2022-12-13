@@ -1,41 +1,32 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
-
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.6/CHANGELOG.md">v1.6 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
-      </li>
-    </ul>
-  </article>
-</section>
+<div class="p-8 flex flex-col items-center">
+    <div class="mb-4">
+      <img src="/images/logo.png" class="mb-2" />
+      <h2 class="font-bold text-4xl text-gray-200 mb-2">Join room!</h2>
+    </div>
+    <form id="form" method="post" class="bg-white shadow-md rounded max-w-md px-8 pt-6 pb-8 mb-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="room_name">
+          Room name
+        </label>
+        <input
+          type="text"
+          required
+          name="room_name"
+          value={@room_id}
+          placeholder="Room name"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="display_name">
+          Display name
+        </label>
+        <input requried class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="display_name" type="text" placeholder="Display name">
+      </div>
+      <div class="flex items-center justify-between">
+        <button class="w-full bg-gray-700 hover:bg-gray-900 focus:ring ring-gray-800 focus:border-gray-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          Enter
+        </button>
+      </div>
+  </form>
+</div>

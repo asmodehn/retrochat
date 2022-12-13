@@ -12,6 +12,12 @@ defmodule RetrochatWeb.Endpoint do
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
+
+  socket("/socket", RetrochatWeb.UserSocket,
+    websocket: true,
+    longpoll: false
+  )
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
@@ -19,8 +25,9 @@ defmodule RetrochatWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :retrochat,
-    gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    brotli: true,
+    gzip: true,
+    only: ~w(assets fonts images html svg favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -38,7 +45,12 @@ defmodule RetrochatWeb.Endpoint do
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
   plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [
+      :urlencoded,
+      :multipart,
+      :json,
+      Absinthe.Plug.Parser
+    ],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
 

@@ -43,7 +43,15 @@ defmodule Retrochat.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:tailwind, "~> 0.1"},
+
+      {:membrane_rtc_engine, "~> 0.1.0"},
+      {:membrane_webrtc_plugin, "~> 0.2.0"},
+      {:poison, "~> 3.1"},
+      #{:phoenix_inline_svg, "~> 1.4"},
+      {:uuid, "~> 1.1"}
+
     ]
   end
 
@@ -56,7 +64,7 @@ defmodule Retrochat.MixProject do
   defp aliases do
     [
       setup: ["deps.get"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end
 end

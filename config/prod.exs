@@ -11,6 +11,8 @@ import Config
 # before starting your production server.
 config :retrochat, RetrochatWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :membrane_videoroom_demo, VideoRoomWeb.Endpoint, server: true
+
 # Do not print debug messages in production
 config :logger, level: :info
 
