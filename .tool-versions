@@ -1,3 +1,4 @@
-erlang 24.1.2
+erlang system
 elixir 1.13.4-otp-24
-rebar 3.20.0
+rebar system
+nodejs 18.12.0

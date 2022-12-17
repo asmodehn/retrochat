@@ -5,7 +5,7 @@ defmodule Retrochat.MixProject do
     [
       app: :retrochat,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -63,8 +63,13 @@ defmodule Retrochat.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      setup: ["deps.get", "cmd --cd assets npm ci"],
+      "assets.deploy": [
+        "cmd --cd assets npm run deploy",
+        "tailwind default --minify",
+        "esbuild default --minify",
+        "phx.digest"
+      ]
     ]
   end
 end

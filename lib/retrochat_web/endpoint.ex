@@ -10,13 +10,13 @@ defmodule RetrochatWeb.Endpoint do
     signing_salt: "wNK6WVcv"
   ]
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/live", Phoenix.LiveView.Socket,
+         websocket: [connect_info: [session: @session_options]]
 
 
-  socket("/socket", RetrochatWeb.UserSocket,
-    websocket: true,
+  socket "/socket", RetrochatWeb.UserSocket,
+    websocket: [connect_info: [session: @session_options]],
     longpoll: false
-  )
 
   # Serve at "/" the static files from "priv/static" directory.
   #

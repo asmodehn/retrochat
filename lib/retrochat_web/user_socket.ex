@@ -3,9 +3,11 @@ defmodule RetrochatWeb.UserSocket do
 
   channel("room:*", RetrochatWeb.PeerChannel)
 
-  @impl true
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  # From liveview
+  # Ref: https://github.com/phoenixframework/phoenix_live_view/blob/master/lib/phoenix_live_view/socket.ex#L89
+  @impl Phoenix.Socket
+  def connect(_params, %Phoenix.Socket{} = socket, connect_info) do
+    {:ok, put_in(socket.private[:connect_info], connect_info)}
   end
 
   @impl true
