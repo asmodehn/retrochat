@@ -7,9 +7,9 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
-config :retrochat, VideoRoomWeb.Endpoint, [
+config :retrochat, RetrochatWeb.Endpoint, [
   {:url, [host: "localhost"]},
-  {:http, [otp_app: :membrane_videoroom_demo, port: System.get_env("SERVER_PORT") || 4000]}
+  {:http, [otp_app: :retrochat, port: System.get_env("SERVER_PORT") || 4000]}
 ]
 
 # ## Using releases
