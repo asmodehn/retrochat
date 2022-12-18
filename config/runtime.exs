@@ -7,6 +7,42 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+defmodule ConfigParser do
+  def parse_external_ip(ip) do
+    with {:ok, parsed_ip} <- ip |> to_charlist() |> :inet.parse_address() do
+      parsed_ip
+    else
+      _ ->
+        raise("""
+        Bad IP address format. Expected IPv4, got: \
+        #{inspect(ip)}
+        """)
+    end
+  end
+
+  def parse_port_range(range) do
+    with [str1, str2] <- String.split(range, "-"),
+         from when from in 0..65_535 <- String.to_integer(str1),
+         to when to in from..65_535 and from <= to <- String.to_integer(str2) do
+      {from, to}
+    else
+      _else ->
+        raise("""
+        Error when parsing a port range. Expected "from-to" format, where `from` and `to` \
+        are integers between 0 and 65535 and `from` is not bigger than `to`, got: \
+        #{inspect(range)}
+        """)
+    end
+  end
+end
+
+config :retrochat,
+       external_ip: System.get_env("EXTERNAL_IP", "127.0.0.1") |> ConfigParser.parse_external_ip(),
+       port_range:
+         System.get_env("PORT_RANGE", "50000-59999")
+         |> ConfigParser.parse_port_range()
+
+
 config :retrochat, RetrochatWeb.Endpoint, [
   {:url, [host: "localhost"]},
   {:http, [otp_app: :retrochat, port: System.get_env("SERVER_PORT") || 4000]}

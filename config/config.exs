@@ -54,9 +54,6 @@ config :logger,
 
  config :logger, :console, metadata: [:room, :peer]
 
-# config :ex_libnice, impl: NIF
-
-
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
