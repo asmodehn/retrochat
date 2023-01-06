@@ -7,8 +7,8 @@ defmodule Retrochat.MixProject do
       version: "0.1.0",
       elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
-      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
+      start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
   end
@@ -50,8 +50,8 @@ defmodule Retrochat.MixProject do
       {:membrane_webrtc_plugin, "~> 0.9.0"},
       {:poison, "~> 3.1"},
       #{:phoenix_inline_svg, "~> 1.4"},
-      {:uuid, "~> 1.1"}
-
+      {:uuid, "~> 1.1"},
+      {:telemetry, "~> 1.0.0", override: true}
     ]
   end
 
